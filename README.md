@@ -5,6 +5,8 @@
 ## Airbnb listings.csv
 June 2026 - New Zealand - Source https://docs.google.com/spreadsheets/d/1iWCNJcSutYqpULSQHlNyGInUvHg2BoUGoNRIGa6Szc4/edit
 
+The data set is licenced under the Creative Commons Attribution 4.0 International License.
+
 | Column                           | Data Type | Description                                                                  |
 | -------------------------------- | --------- | ---------------------------------------------------------------------------- |
 | `id`                             | integer   | Airbnb's unique identifier for the listing                                   |
