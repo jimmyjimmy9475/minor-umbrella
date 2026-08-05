@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 import pandas as pd
+from datetime import datetime as dt
 
 months = {
     "June": "June-2026",
@@ -55,3 +56,7 @@ print(df_chch_all.isnull().sum())
 print(df_chch_all[['price', 'minimum_nights', 'number_of_reviews', 'availability_365', 'calculated_host_listings_count', 'number_of_reviews_ltm']].describe())
 
 df_chch_all.to_csv("listings_concat.csv")
+
+plt.hist(df_chch_all[df_chch_all['price']<=3000]['price'], bins=80)
+
+plt.show()
