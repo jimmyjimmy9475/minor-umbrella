@@ -57,7 +57,7 @@ print()
 # Save the concatenated AirBnB listings for christchurch from Oct-2025 to June-2026
 df_chch_all.to_csv("listings_concat.csv")
 
-# Distribution(histogram) of price (>= 3000)
+# Distribution(histogram) of price (<= 3000)
 # Note: Many don't have a defined price, these are ignored
 
 plt.hist(df_chch_all[df_chch_all['price']<=3000]['price'], bins=80)
@@ -70,7 +70,7 @@ plt.show()
 # The number of days since last review
 
      # A publish date column created. 
-     # Since some of the values for the number of days since last review were negative(ranging from -13 to -1), the publish datead was adjusted.
+     # Since some of the values for the number of days since last review were negative(ranging from -13 to -1), the publish date was adjusted.
 
 conditions = [
     df_chch_all["month_year"] == "June-2026", 
