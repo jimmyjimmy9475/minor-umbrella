@@ -120,7 +120,7 @@ review_threshold = df_chch_all["number_of_reviews"].quantile(0.90)
 top_10_reviews = df_chch_all[df_chch_all["number_of_reviews"] >= review_threshold ].copy()
 top_10_reviews = top_10_reviews.sort_values(by = "number_of_reviews", ascending = False)
 
-print(r"The Top 10% number of reviews by month of Christchurch AirBnBs ")
+print(r"The Top 10% number of reviews Christchurch AirBnBs ")
 print(top_10_reviews[["name", "number_of_reviews", "month_year", "price"]])
 
 print("Number in Top 10 percent numbers of reviews: ", len(top_10_reviews))
