@@ -41,7 +41,6 @@ print(
 )
 
 
-
 df_chch_clean = df_chch_clean.drop(
     columns=["Unnamed: 0"],
     errors="ignore"
@@ -56,3 +55,4 @@ df_chch_clean.to_csv(
     index=False
 )
 
+print("Rows with missing price data:", df_chch_clean["price"].isna().sum())

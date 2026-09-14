@@ -76,12 +76,7 @@ minimum_nights
 
 Additional formatting was undertaken to have latitude and longitude to a consistent number of decimal places, 1. 
 
-Original rows: 28795
-Final rows: 18128
-Total rows removed: 10667
-
-
-10667 rows with missing price values were removed. This decision was made, given that we need to compare rental prices and number
-of available properties soon, and missing price data will hinder this process.
+As a group, we opted to keep the rows with missing price values, as losing 10667 records out of 28795 would be an incredibly significant loss
+of data which could be valuable down the line. 
 
 Note: AI was used in the process of cleaning the data. 
