@@ -48,3 +48,31 @@ This data has been liscensed under a Creative Commons Atribution 3.0 New Zealand
 | `Lower Quartile Rent`          | float        | The 25th percentile benchmark value of weekly rental prices. |
 | `Log Std Dev Weekly Rent`      | float        | The logarithmic standard deviation calculation evaluating weekly rent volatility. |
 
+
+Cleaning of the listings_concat.csv file:
+
+
+Bearing in mind that we will be comparing rental prices and number of available properties soon (with the rental tenancy data), it made sense
+to cull many columns which were not useful for comparison. 
+
+The following columns were removed: 
+
+name
+host_id
+host_name
+neighbourhood_group
+reviews_per_month
+calculated_host_listings_count
+license
+number_of_reviews
+last_review
+number_of_reviews_ltm
+minimum_nights
+
+
+Additional formatting was undertaken to have latitude and longitude to a consistent number of decimal places, 1. 
+
+As a group, we opted to keep the rows with missing price values, as losing 10667 records out of 28795 would be an incredibly significant loss
+of data which could be valuable down the line. 
+
+Note: AI was used in the process of cleaning the data. 
