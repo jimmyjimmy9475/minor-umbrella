@@ -40,7 +40,7 @@ print(
     original_rows - len(df_chch_clean)
 )
 
-df_chch_clean = df_chch_clean.dropna(subset=["price"]).copy()
+
 
 df_chch_clean = df_chch_clean.drop(
     columns=["Unnamed: 0"],
