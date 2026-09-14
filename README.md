@@ -32,7 +32,6 @@ The data set is licenced under the Creative Commons Attribution 4.0 Internationa
 ## Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv
 Jan 2020 to Apr 2026 New Zealand 
 Source: https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/ 
-
 This data has been liscensed under a Creative Commons Atribution 3.0 New Zealand License 
 | Column                         | Data Type    | Description                                        |
 | ------------------------------ | ------------ | -------------------------------------------------- |
@@ -48,3 +47,4 @@ This data has been liscensed under a Creative Commons Atribution 3.0 New Zealand
 | `Upper Quartile Rent`          | float        | The 75th percentile benchmark value of weekly rental prices. |
 | `Lower Quartile Rent`          | float        | The 25th percentile benchmark value of weekly rental prices. |
 | `Log Std Dev Weekly Rent`      | float        | The logarithmic standard deviation calculation evaluating weekly rent volatility. |
+
