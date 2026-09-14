@@ -50,7 +50,7 @@ print(
 
 df_chch_clean = df_chch_clean.dropna(subset=["price"]).copy()
 
-# Remove an old CSV index column if present
+
 df_chch_clean = df_chch_clean.drop(
     columns=["Unnamed: 0"],
     errors="ignore"
