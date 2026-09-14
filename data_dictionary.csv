@@ -1,0 +1,13 @@
+Columns,Data Type
+TimeFrame,str
+Location Id,float64
+Dwelling Type,str
+Number Of Beds,str
+Total Bonds,int64
+Active Bonds,int64
+Closed Bonds,int64
+Median Rent,float64
+Geometric Mean Rent,float64
+Upper Quartile Rent,float64
+Lower Quartile Rent,float64
+Log Std Dev Weekly Rent,float64
