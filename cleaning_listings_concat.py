@@ -31,7 +31,7 @@ df_chch_clean[["latitude", "longitude"]] = (
 
 rows_before = len(df_chch_clean)
 
-df_chch_clean = df_chch_clean.dropna(subset=["price"]).copy()
+
 
 print("Original rows:", original_rows)
 print("Final rows:", len(df_chch_clean))
