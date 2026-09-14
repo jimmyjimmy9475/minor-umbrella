@@ -3,12 +3,9 @@ import pandas as pd
 
 df_chch_all = pd.read_csv("listings_concat.csv")
 
-
 df_chch_clean = df_chch_all.copy()
 
-
 original_rows = len(df_chch_clean)
-
 
 cols_to_remove = [
     "name",
@@ -28,7 +25,6 @@ df_chch_clean = df_chch_clean.drop(
     columns=cols_to_remove
 )
 
-
 df_chch_clean[["latitude", "longitude"]] = (
     df_chch_clean[["latitude", "longitude"]].round(1)
 )
@@ -37,9 +33,6 @@ rows_before = len(df_chch_clean)
 
 df_chch_clean = df_chch_clean.dropna(subset=["price"]).copy()
 
-
-
-
 print("Original rows:", original_rows)
 print("Final rows:", len(df_chch_clean))
 print(
@@ -47,16 +40,12 @@ print(
     original_rows - len(df_chch_clean)
 )
 
-
 df_chch_clean = df_chch_clean.dropna(subset=["price"]).copy()
-
 
 df_chch_clean = df_chch_clean.drop(
     columns=["Unnamed: 0"],
     errors="ignore"
 )
-
-
 
 df_chch_clean = df_chch_clean.reset_index(drop=True)
 
