@@ -56,3 +56,4 @@ df_chch_clean.to_csv(
 )
 
 print("Rows with missing price data:", df_chch_clean["price"].isna().sum())
+print(df_chch_clean["month_year"].unique())
