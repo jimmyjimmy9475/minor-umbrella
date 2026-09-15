@@ -1,31 +1,89 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
-df = pd.read_csv("tenancy_data/Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv")
-data_dict = pd.DataFrame({"Columns": df.columns, "Data Type": df.dtypes.astype(str)})
+# Load and explore the tenancy dataset
 
-data_dict.to_csv("data_dictionary.csv", index=False)
+df_tenancy = pd.read_csv("Tenancy.csv")
+print(df_tenancy.info())
+print()
+print(df_tenancy.head())
+print()
+print(df_tenancy.info())
+print()
 
-# Define your schema fields: (Field Name, Data Type, Description)
-schema_data = [
-    ("TimeFrame", "text", "Text data representing the time period (e.g., '2026-Q1')."),
-    ("Location Id", "float", "Unique identifier code for the location/region."),
-    ("Dwelling Type", "text", "Text description outlining the property style (e.g., House, Apartment)."),
-    ("Number Of Beds", "text", "The number of bedrooms available, kept as text to accommodate categories like '3+'."),
-    ("Total Bonds", "integer", "Total cumulative number of rental bonds deposited."),
-    ("Active Bonds", "integer", "Number of currently active or open rental bonds."),
-    ("Closed Bonds", "integer", "Number of resolved or finalized rental bonds."),
-    ("Median Rent", "float", "The middle point value of weekly rent metrics."),
-    ("Geometric Mean Rent", "float", "The calculated geometric mean of historical weekly rent values."),
-    ("Upper Quartile Rent", "float", "The 75th percentile benchmark value of weekly rental prices."),
-    ("Lower Quartile Rent", "float", "The 25th percentile benchmark value of weekly rental prices."),
-    ("Log Std Dev Weekly Rent", "float", "The logarithmic standard deviation calculation evaluating weekly rent volatility.")
+# Convert the "TimeFrame" column to datetime data type
+df_tenancy["TimeFrame"] = pd.to_datetime(df_tenancy["TimeFrame"])
+
+# Filter the dataset
+tenancy_filtered = df_tenancy[df_tenancy["TimeFrame"] >= "2025-10-01"].copy()
+print(tenancy_filtered.info())
+print()
+print(tenancy_filtered["TimeFrame"].unique())
+
+# Create the "year_quarter" column for October 2025 to June 2026
+# "TimeFrame" represents the start date of each quarter
+quarter = {
+    pd.Timestamp("2025-10-01"): "2025_Q4",
+    pd.Timestamp("2026-01-01"): "2026_Q1",
+    pd.Timestamp("2026-04-01"): "2026_Q2"
+}
+
+tenancy_filtered["year_quarter"] = tenancy_filtered["TimeFrame"].map(quarter)
+
+print(tenancy_filtered.head())
+
+# Data cleaning
+
+# Filter and count rows containing "Location Id" == -99.0
+print((tenancy_filtered[tenancy_filtered["Location Id"] == -99.0]).head(20))  # Explore the filtered data
+print((tenancy_filtered[tenancy_filtered["Location Id"] == -99.0]).count())  # Count the number of rows containing -99.0
+
+# Replace "Location Id" values of -99.0 with NaN
+tenancy_filtered["Location Id"] = tenancy_filtered["Location Id"].replace(-99.0, np.nan)
+print((tenancy_filtered[tenancy_filtered["Location Id"] == -99.0]).count())  # Check whether any -99.0 values remain
+
+# Identify rows containing more than 40% missing values
+rows_with_high_na = tenancy_filtered[(tenancy_filtered.isna().mean(axis=1) * 100) > 40]
+
+# Define columns used to identify rows with missing rental information
+cols = [
+    "Location Id",
+    "Median Rent",
+    "Geometric Mean Rent",
+    "Upper Quartile Rent",
+    "Lower Quartile Rent",
+    "Log Std Dev Weekly Rent"
 ]
 
-# Print the top headers matching your style
-print(f"| {'Column':<30} | {'Data Type':<12} | {'Description':<50} |")
-print(f"| {'-'*30} | {'-'*12} | {'-'*50} |")
+# Identify rows containing missing values in any of the specified columns
+missing_rows = tenancy_filtered[tenancy_filtered[cols].isna().any(axis=1)]
 
-# Print the rows automatically formatted with padding spacer alignments
-for col_name, data_type, desc in schema_data:
-    formatted_name = f"{col_name}"
-    print(f"| {formatted_name:<30} | {data_type:<12} | {desc:<50} |")
+# Count the number of rows where all of the specified columns are missing
+print(missing_rows[cols].isna().all(axis=1).sum())
+
+# Identify rows where all of the specified columns are missing
+all_missing = missing_rows[missing_rows[cols].isna().all(axis=1)]
+
+print(all_missing.shape)
+
+# Drop rows where all of the specified columns are missing
+tenancy_clean = tenancy_filtered[
+    ~tenancy_filtered[cols].isna().all(axis=1)
+].copy()
+
+print(tenancy_clean.isna().sum())
+print(tenancy_clean.shape)
+
+# Count dwelling types with missing "Number Of Beds" values
+print(tenancy_clean[
+        tenancy_clean["Number Of Beds"].isna()]["Dwelling Type"].value_counts())
+
+# Number of rows befor and after cleaning
+print("Rows before cleaning:", tenancy_filtered.shape[0])
+print("Rows after cleaning:", tenancy_clean.shape[0])
+print("Rows removed:", tenancy_filtered.shape[0] - tenancy_clean.shape[0])
+
+# Save the cleaned dataset as a CSV file
+tenancy_clean.to_csv("tenancy_clean.csv")
+
