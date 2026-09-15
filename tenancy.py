@@ -1,7 +1,6 @@
-import os
-
 import pandas as pd
-df = pd.read_csv(r"C:\Users\muzam\OneDrive - University of Canterbury\DATA201\Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv")
+
+df = pd.read_csv("tenancy_data/Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv")
 data_dict = pd.DataFrame({"Columns": df.columns, "Data Type": df.dtypes.astype(str)})
 
 data_dict.to_csv("data_dictionary.csv", index=False)
@@ -28,6 +27,5 @@ print(f"| {'-'*30} | {'-'*12} | {'-'*50} |")
 
 # Print the rows automatically formatted with padding spacer alignments
 for col_name, data_type, desc in schema_data:
-    # `host_id` styling wrap style (enclosing backticks if desired)
-    formatted_name = f"`{col_name}`"
+    formatted_name = f"{col_name}"
     print(f"| {formatted_name:<30} | {data_type:<12} | {desc:<50} |")
