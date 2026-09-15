@@ -9,8 +9,6 @@ print(df_tenancy.info())
 print()
 print(df_tenancy.head())
 print()
-print(df_tenancy.info())
-print()
 
 # Convert the "TimeFrame" column to datetime data type
 df_tenancy["TimeFrame"] = pd.to_datetime(df_tenancy["TimeFrame"])
@@ -47,42 +45,16 @@ print()
 # Replace "Location Id" values of -99.0 with NaN
 tenancy_filtered["Location Id"] = tenancy_filtered["Location Id"].replace(-99.0, np.nan)
 print((tenancy_filtered[tenancy_filtered["Location Id"] == -99.0]).count())  # Check whether any -99.0 values remain
+print()
+print(tenancy_filtered.isna().sum())
 
-# Identify rows containing more than 40% missing values
-rows_with_high_na = tenancy_filtered[(tenancy_filtered.isna().mean(axis=1) * 100) > 40]
+# drop rows containing missing value for location Id
+tenancy_clean = tenancy_filtered.dropna(subset=["Location Id"])
+print()
 
-# Define columns used to identify rows with missing rental information (>40%)
-cols = [
-    "Location Id",
-    "Median Rent",
-    "Geometric Mean Rent",
-    "Upper Quartile Rent",
-    "Lower Quartile Rent",
-    "Log Std Dev Weekly Rent"
-]
-
-# Identify rows containing missing values in any of the specified columns
-missing_rows = tenancy_filtered[tenancy_filtered[cols].isna().any(axis=1)]
-
-# Count the number of rows where all of the specified columns are missing
-print(missing_rows[cols].isna().all(axis=1).sum())
-
-# Identify rows where all of the specified columns are missing
-all_missing = missing_rows[missing_rows[cols].isna().all(axis=1)]
-
-print(all_missing.shape)
-
-# Drop rows where all of the specified columns are missing
-tenancy_clean = tenancy_filtered[
-    ~tenancy_filtered[cols].isna().all(axis=1)
-].copy()
-
+# Check for number of missing values
 print(tenancy_clean.isna().sum())
 print(tenancy_clean.shape)
-
-# Count dwelling types with missing "Number Of Beds" values
-print(tenancy_clean[
-        tenancy_clean["Number Of Beds"].isna()]["Dwelling Type"].value_counts())
 
 # Number of rows befor and after cleaning
 print("Rows before cleaning:", tenancy_filtered.shape[0])
