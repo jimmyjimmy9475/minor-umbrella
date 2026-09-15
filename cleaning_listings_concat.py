@@ -25,9 +25,6 @@ df_chch_clean = df_chch_clean.drop(
     columns=cols_to_remove
 )
 
-df_chch_clean[["latitude", "longitude"]] = (
-    df_chch_clean[["latitude", "longitude"]].round(1)
-)
 
 rows_before = len(df_chch_clean)
 
