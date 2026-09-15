@@ -70,9 +70,7 @@ number_of_reviews_ltm
 minimum_nights
 
 
-Additional formatting was undertaken to have latitude and longitude to a consistent number of decimal places, 1. 
-
 As a group, we opted to keep the rows with missing price values, as losing 10667 records out of 28795 would be an incredibly significant loss
 of data which could be valuable down the line. 
 
-Note: AI was used in the process of cleaning the data. 
+Note: AI was used to help with writing the code for the cleaning process. It was not allowed to make cleaning decisions and all results were checked for accuracy. 
