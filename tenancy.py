@@ -32,13 +32,18 @@ quarter = {
 tenancy_filtered["year_quarter"] = tenancy_filtered["TimeFrame"].map(quarter)
 
 print(tenancy_filtered.head())
+print()
 
 # Data cleaning
 
+#checking for duplicates
+duplicated_rows = tenancy_filtered.duplicated().sum()
+print("Number of duplicated rows:", duplicated_rows) 
+print()
 # Filter and count rows containing "Location Id" == -99.0
 print((tenancy_filtered[tenancy_filtered["Location Id"] == -99.0]).head(20))  # Explore the filtered data
 print((tenancy_filtered[tenancy_filtered["Location Id"] == -99.0]).count())  # Count the number of rows containing -99.0
-
+print()
 # Replace "Location Id" values of -99.0 with NaN
 tenancy_filtered["Location Id"] = tenancy_filtered["Location Id"].replace(-99.0, np.nan)
 print((tenancy_filtered[tenancy_filtered["Location Id"] == -99.0]).count())  # Check whether any -99.0 values remain
@@ -46,7 +51,7 @@ print((tenancy_filtered[tenancy_filtered["Location Id"] == -99.0]).count())  # C
 # Identify rows containing more than 40% missing values
 rows_with_high_na = tenancy_filtered[(tenancy_filtered.isna().mean(axis=1) * 100) > 40]
 
-# Define columns used to identify rows with missing rental information
+# Define columns used to identify rows with missing rental information (>40%)
 cols = [
     "Location Id",
     "Median Rent",
