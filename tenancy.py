@@ -90,5 +90,5 @@ print("Rows after cleaning:", tenancy_clean.shape[0])
 print("Rows removed:", tenancy_filtered.shape[0] - tenancy_clean.shape[0])
 
 # Save the cleaned dataset as a CSV file
-tenancy_clean.to_csv("tenancy_clean.csv")
+tenancy_clean.to_csv("tenancy_cleaned.csv")
 
