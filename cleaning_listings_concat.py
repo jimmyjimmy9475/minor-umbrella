@@ -17,8 +17,7 @@ cols_to_remove = [
     "license",
     "number_of_reviews",
     "last_review",
-    "number_of_reviews_ltm",
-    "minimum_nights",
+    "number_of_reviews_ltm"
 ]
 
 df_chch_clean = df_chch_clean.drop(
