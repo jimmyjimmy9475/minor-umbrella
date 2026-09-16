@@ -38,10 +38,10 @@ Note: Rows are supressed(ommited) when there are less than 5 bonds for a given p
 
 | Column                         | Data Type    | Description                                        |
 | ------------------------------ | ------------ | -------------------------------------------------- |
-| `TimeFrame`                    | text         | Text data representing the time period (e.g., '2026-Q1'). |
-| `Location Id`                  | integer        | Unique identifier code for the location/region. We have assumed -99 is national aggergrate(as this is the case in other tenancy service data) and NA is for tenancies missing data(e.g. were supressed due to having less than 5 bonds) |
+| `TimeFrame`                    | Date         | Date representing the start of the quarter (e.g., '2026-04-01'). |
+| `Location Id`                  | integer      | SA2-2019 from Stats nz for the location/region. We have assumed -99 is national aggergrate(as this is the case in other tenancy service data) and NA is for tenancies missing data(e.g. were supressed due to having less than 5 bonds) |
 | `Dwelling Type`                | text         | Text description outlining the property style (e.g., 'Apartment', 'Boarding House', 'Flat', 'House', 'Room'). ALL is also used as an aggregate |
-| `Number Of Beds`               | text         | The number of bedrooms available, kept as text to accommodate categories like '3+'. |
+| `Number Of Beds`               | text         | The number of bedrooms available, kept as text to accommodate categories like '3+'.  ALL is also used as an aggregate |
 | `Total Bonds`                  | integer      | Number of rental bonds deposited during this period. |
 | `Active Bonds`                 | integer      | Number of currently active bonds.   |
 | `Closed Bonds`                 | integer      | Number of bonds closed during this period.      |
@@ -58,7 +58,7 @@ Note: Rows are supressed(ommited) when there are less than 5 bonds for a given p
 
 Bearing in mind that we will be comparing rental prices and number of available properties soon (with the rental tenancy data), it made sense to cull many columns which were not useful for comparison. 
 
-The following columns were removed: 
+The following columns were removed as they contributed little to our analysis: 
 
 name
 host_id
@@ -72,10 +72,7 @@ last_review
 number_of_reviews_ltm
 minimum_nights
 
-
-Additional formatting was undertaken to have latitude and longitude to a consistent number of decimal places, 1. 
-
-As a group, we opted to keep the rows with missing price values, as losing 10667 records out of 28795 would be an incredibly significant loss of data which could be valuable down the line. 
+As a group, we opted to keep the rows with missing price values(i.e. summer), as losing 10667 records out of 28795 would be an incredibly significant loss of data which could be valuable down the line. 
 
 Note: AI was used to help with writing the code for the cleaning process. It was not allowed to make cleaning decisions and all results were checked for accuracy. 
 
@@ -84,7 +81,7 @@ Note: AI was used to help with writing the code for the cleaning process. It was
 The date column was replaced with a quarter column.
 
 Original data is not tidy, it contains rows which are aggregates of other rows.
-These aggregate rows have been deleted.
+These rows have been deleted.
 - Where location is -99 (national aggregate)
 - Where Dwelling Type is ALL
 - Where Number Of Beds is *not* ALL (analysis does not require number of beds)
@@ -96,6 +93,6 @@ The following columns were dropped as they were deemed to have little relavance 
 - Number Of Beds (analysis does not use number of beds, only considering aggregate rows)
 - Log Std Dev Weekly Rent (not too helpful for this)
 
-Rows with Location Id = NaN were removed as these did not have price data(median rent etc were also NaN). Unclear what these bonds represent, potentially is an aggregate for those bonds that were supressed due to having less than 5 activie bonds in a location. This removed 15 rows from the filtered dataset.
+Rows with Location Id = NaN were removed as these did not have price data(median rent etc were also NaN). Not completely certain what these bonds represent, potentially is an aggregate for those bonds that were supressed due to having less than 6 active bonds in a location. This removed 15 rows from the filtered dataset.
 
 We checked that there are no duplicated rows.

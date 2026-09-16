@@ -1,6 +1,6 @@
 import pandas as pd
 
-# treat location as string to handle "NULL"
+# treat location as string
 data_types = {
     'Location Id': str,
     'Active Bonds':'Int64',
@@ -9,7 +9,7 @@ data_types = {
     'Lower Quartile Rent':'Int64',
 }
 
-# must include data in tenancy_data folder, and named "Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv"
+# data must be in tenancy_data folder, and named "Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv"
 df = pd.read_csv("tenancy_data/Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv", dtype=data_types)
 
 assert df['TimeFrame'].notna().all(), "TimeFrame has Na values"
@@ -43,7 +43,6 @@ cols_to_remove = [
     'Closed Bonds',
     'Geometric Mean Rent',
     'Log Std Dev Weekly Rent',
-    'TimeFrame',
 ]
 df = df.drop(
     columns=cols_to_remove
