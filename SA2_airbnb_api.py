@@ -133,4 +133,5 @@ def concurrentSA2(coordinates):
 
     return results
 
-fill_missing_sa2()
+if __name__ == "__main__":
+    freshRun()
