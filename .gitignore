@@ -226,3 +226,6 @@ listings_concat.csv
 listings_concat_clean.csv
 tenancy_clean.csv
 listings_SA2.csv
+
+
+listings_tenancy_joined.csv
