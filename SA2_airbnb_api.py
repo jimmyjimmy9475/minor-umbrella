@@ -44,7 +44,7 @@ def get_sa2(lon, lat):
     except (requests.RequestException, ValueError, KeyError) as e:
         print(e)
         return
-
+    
 def freshRun():
     df = pd.read_csv("listings_concat_clean.csv")
 
