@@ -45,7 +45,6 @@ def get_sa2(lon, lat):
         print(e)
         return
 
-
 def freshRun():
     df = pd.read_csv("listings_concat_clean.csv")
 
