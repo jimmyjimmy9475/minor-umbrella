@@ -41,8 +41,6 @@ cols_to_remove = [
     'Number Of Beds',
     'Total Bonds',
     'Closed Bonds',
-    'Geometric Mean Rent',
-    'Log Std Dev Weekly Rent',
 ]
 df = df.drop(
     columns=cols_to_remove
