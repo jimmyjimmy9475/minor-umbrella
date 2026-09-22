@@ -7,19 +7,11 @@ months = {
     "May": "May-2026",
     "April": "April-2026",
     "March": "March-2026",
-<<<<<<< Updated upstream
     "February": "Feb-2026",
     "January": "Jan-2026",
     "December": "Dec-2025",
     "November": "Nov-2025",
     "October": "Oct-2025"
-=======
-    "February": "February-2026",
-    "January": "January-2026",
-    "December": "December-2025",
-    "November": "November-2025",
-    "October": "October-2025"
->>>>>>> Stashed changes
 }
 
 dfs = []
