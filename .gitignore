@@ -220,8 +220,6 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-/airbnb_data/*
-/tenancy_data/*
 listings_concat.csv
 listings_concat_clean.csv
 tenancy_clean.csv
