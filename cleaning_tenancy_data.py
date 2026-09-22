@@ -1,5 +1,9 @@
 import pandas as pd
 
+input_filepath = "tenancy_data/Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv"
+output_filepath = "tenancy_clean.csv"
+stat_area_filepath = "stat_area_data/geographic-areas-table-2023.csv"
+
 # treat location as string
 data_types = {
     'Location Id': str,
@@ -9,8 +13,7 @@ data_types = {
     'Lower Quartile Rent':'Int64',
 }
 
-# data must be in tenancy_data folder, and named "Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv"
-df = pd.read_csv("tenancy_data/Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv", dtype=data_types)
+df = pd.read_csv(input_filepath, dtype=data_types)
 
 assert df['TimeFrame'].notna().all(), "TimeFrame has Na values"
 # Convert the "TimeFrame" column to datetime data type
@@ -46,9 +49,11 @@ df = df.drop(
     columns=cols_to_remove
 )
 
-num_before = len(df['Location Id'])
+num_before_removena = len(df['Location Id'])
 df = df[df['Location Id'].notna()] # remove na
-num_after = len(df['Location Id'])
+num_after_removena = len(df['Location Id'])
+
+stat_areas = pd.read_csv(stat_area_filepath)
 
 # Check some assumptions
 assert df['year_quarter'].notna().all(), "year_quarter has Na values"
@@ -57,10 +62,10 @@ assert (df['Location Id'] != '-99').all(), "Location Id has -99 values"
 assert df['Dwelling Type'].notna().all(), "Dwelling Type has Na values"
 assert df.duplicated(['Location Id', 'year_quarter', 'Dwelling Type']).sum() == 0, "There are duplicate rows with same year_quarter/Location/Dwelling Type"
 
-print(f'Rows removed due to NA location: {num_before-num_after}')
+print(f'Rows removed due to NA location: {num_before_removena-num_after_removena}')
 print(df)
 
 df.to_csv(
-    "tenancy_clean.csv",
+    output_filepath,
     index=False
 )
