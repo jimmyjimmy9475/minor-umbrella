@@ -266,5 +266,3 @@ print("5. airbnb_vs_longterm_properties.png")
 
 
 
-print(christchurch.info())
-print(christchurch.tail(10))
