@@ -7,11 +7,11 @@ months = {
     "May": "May-2026",
     "April": "April-2026",
     "March": "March-2026",
-    "Feb": "Feb-2026",
-    "Jan": "Jan-2026",
-    "Dec": "Dec-2025",
-    "Nov": "Nov-2025",
-    "Oct": "Oct-2025"
+    "February": "Feb-2026",
+    "January": "Jan-2026",
+    "December": "Dec-2025",
+    "November": "Nov-2025",
+    "October": "Oct-2025"
 }
 
 dfs = []
