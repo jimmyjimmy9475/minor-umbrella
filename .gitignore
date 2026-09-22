@@ -229,3 +229,6 @@ listings_SA2.csv
 listings_tenancy_joined.csv
 tenancy_clean_with_dwelling.csv
 tenancy_clean_without_dwelling.csv
+price_gap_by_sa2.csv
+property_comparison_by_sa2.csv
+christchurch_analysis.csv
