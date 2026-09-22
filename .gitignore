@@ -236,3 +236,6 @@ christchurch_analysis.csv
 *.png
 *.csv
 price_gap_by_sa2.csv
+airbnb_vs_longterm_properties.png
+*.csv
+price_gap_distribution.png
