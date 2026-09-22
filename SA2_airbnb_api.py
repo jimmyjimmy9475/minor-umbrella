@@ -46,7 +46,7 @@ def get_sa2(lon, lat):
         return
     
 def freshRun():
-    df = pd.read_csv("listings_concat_clean.csv")
+    df = pd.read_csv("listings_concat_clean.csv", dtype={"price" : "Int64"})
 
     coordinates = (
         df[["longitude", "latitude"]]
@@ -69,7 +69,7 @@ def freshRun():
     print("Saved to listings_SA2.csv")
 
 def fill_missing_sa2():
-    df = pd.read_csv("listings_SA2.csv", dtype={"sa2": str})
+    df = pd.read_csv("listings_SA2.csv", dtype={"sa2": str, "price" : "Int64"})
 
     missing_mask = df["sa2"].isna() | (df["sa2"].astype(str).str.strip() == "")
 

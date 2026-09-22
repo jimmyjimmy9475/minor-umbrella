@@ -7,11 +7,11 @@ months = {
     "May": "May-2026",
     "April": "April-2026",
     "March": "March-2026",
-    "February": "Feb-2026",
-    "January": "Jan-2026",
-    "December": "Dec-2025",
-    "November": "Nov-2025",
-    "October": "Oct-2025"
+    "February": "February-2026",
+    "January": "January-2026",
+    "December": "December-2025",
+    "November": "November-2025",
+    "October": "October-2025"
 }
 
 dfs = []
@@ -30,6 +30,9 @@ for month, month_year in months.items():
 
 # Combine all months
 df_chch_all = pd.concat(dfs, ignore_index=True)
+# Convert price to numeric, then to nullable integer
+df_chch_all["price"] = pd.to_numeric(df_chch_all["price"], errors="coerce").astype("Int64")
+
 
 # Check
 # print(df_chch_all[["month_year", "neighbourhood_group"]].head())

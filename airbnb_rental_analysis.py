@@ -12,7 +12,13 @@ geography_file = folder / "stat_area_data" / "geographic-areas-table-2023.csv"
 
 joined = pd.read_csv(
     joined_file,
-    dtype={"sa2": "string", "id": "string"}
+    dtype={
+        "sa2": "string", 
+        "id": "string", 
+        "airbnb_median_price": "Int64", 
+        "tenancy_median_weekly_rent": "Int64", 
+        "tenancy_active_bonds": "Int64"
+        }
 )
 
 geography = pd.read_csv(
@@ -36,6 +42,8 @@ sa2_lookup = sa2_lookup[
     sa2_lookup["TA2023_name"].eq("Christchurch City")
 ]
 
+
+
 # MERGE GEOGRAPHIC INFORMATION
 
 christchurch = joined.merge(
@@ -49,30 +57,17 @@ christchurch = joined.merge(
 if christchurch.empty:
     raise ValueError("No Christchurch records were found.")
 
-# CONVERT NUMERIC VARIABLES
-
-christchurch["price"] = pd.to_numeric(
-    christchurch["price"], errors="coerce"
-)
-
-christchurch["Median Rent"] = pd.to_numeric(
-    christchurch["Median Rent"], errors="coerce"
-)
-
-christchurch["Active Bonds"] = pd.to_numeric(
-    christchurch["Active Bonds"], errors="coerce"
-)
 
 # PRICE GAP
 
 # Long-term rent is weekly, so convert it to a nightly value.
 christchurch["long_term_price_per_night"] = (
-    christchurch["Median Rent"] / 7
+    christchurch["tenancy_median_weekly_rent"] / 7
 )
 
 # Airbnb price is already per night.
 christchurch["price_gap"] = (
-    christchurch["price"]
+    christchurch["airbnb_median_price"]
     - christchurch["long_term_price_per_night"]
 )
 
@@ -93,7 +88,6 @@ price_gap_by_sa2 = (
         mean_price_gap=("price_gap", "mean"),
         minimum_price_gap=("price_gap", "min"),
         maximum_price_gap=("price_gap", "max"),
-        number_of_airbnbs=("id", "nunique")
     )
     .sort_values(
         "median_price_gap",
@@ -146,37 +140,18 @@ plt.savefig(
     bbox_inches="tight"
 )
 
-plt.show()
-
 # AIRBNB VS LONG-TERM RENTAL PROPERTIES
 
-airbnb_counts = (
+property_comparison = (
     christchurch
     .groupby(
         ["sa2", "SA22018_name"],
         as_index=False
     )
     .agg(
-        airbnb_properties=("id", "nunique")
+        airbnb_properties=("airbnb_count", "max"),
+        long_term_properties=("tenancy_active_bonds", "max"),
     )
-)
-
-# Active Bonds represents the number of active rental bonds.
-long_term_counts = (
-    christchurch
-    .groupby(
-        ["sa2", "SA22018_name"],
-        as_index=False
-    )
-    .agg(
-        long_term_properties=("Active Bonds", "first")
-    )
-)
-
-property_comparison = airbnb_counts.merge(
-    long_term_counts,
-    on=["sa2", "SA22018_name"],
-    how="left"
 )
 
 property_comparison = property_comparison.sort_values(
@@ -189,7 +164,7 @@ print("AIRBNB VS LONG-TERM RENTAL PROPERTIES")
 print("=" * 70)
 
 print(
-    property_comparison.to_string(index=False)
+    property_comparison.head(15)
 )
 
 # PROPERTY COMPARISON PLOT
@@ -231,8 +206,6 @@ plt.savefig(
     bbox_inches="tight"
 )
 
-plt.show()
-
 # SAVE RESULTS
 
 
@@ -252,6 +225,15 @@ christchurch.to_csv(
 )
 
 # COMPLETION
+
+
+print("\n" + "=" * 70)
+print("Median AirBnb price for Christchurch Central")
+print("=" * 70)
+
+christchurch_central_data=joined[joined["sa2"]=='326600']
+print(christchurch_central_data[["year_quarter", "airbnb_median_price"]])
+
 
 print("\n" + "=" * 70)
 print("ANALYSIS COMPLETED SUCCESSFULLY")

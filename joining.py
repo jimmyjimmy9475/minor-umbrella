@@ -38,6 +38,11 @@ airbnb_summary = (
     )
 )
 
+airbnb_summary["airbnb_median_price"] = (
+    airbnb_summary["airbnb_median_price"].round().astype("Int64")
+)
+
+
 
 tenancy_summary = tenancy[
     ["sa2", "year_quarter", "Median Rent", "Active Bonds"]

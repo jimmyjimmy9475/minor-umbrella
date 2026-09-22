@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-df_chch_all = pd.read_csv("listings_concat.csv")
+df_chch_all = pd.read_csv("listings_concat.csv", dtype={"price" : "Int64"} )
 
 df_chch_clean = df_chch_all.copy()
 
