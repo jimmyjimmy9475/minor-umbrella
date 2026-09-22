@@ -23,9 +23,6 @@ listings["year_quarter"] = pd.to_datetime(
 
 
 
-tenancy["year_quarter"] = (
-    tenancy["year_quarter"].str.replace("_", "", regex=False)
-)
 
 
 

@@ -61,7 +61,7 @@ assert df['Dwelling Type'].notna().all(), "Dwelling Type has Na values"
 assert df.duplicated(['Location Id', 'year_quarter', 'Dwelling Type']).sum() == 0, "There are duplicate rows with same year_quarter/Location/Dwelling Type"
 
 print(f'Rows removed due to NA location: {num_before_removena-num_after_removena}')
-print(df)
+
 
 # Dataset with Dwelling Type Info
 
@@ -73,22 +73,13 @@ df_with_dwelling.to_csv(
 )
 
 
-# # Dataset without Dwelling Type Info
+# Dataset without Dwelling Type Info
 
-# df_without_dwelling = df[df['Dwelling Type']!='ALL']
+df_without_dwelling = df[df['Dwelling Type']=='ALL']
 
-# df = df.drop(
-#     columns=['Dwelling Type']
-# )
-
-# df_without_dwelling.to_csv(
-#     output_withoutdwelling_filepath,
-#     index=False
-# )
-
-df_without_dwelling = df.loc[
-    df["Dwelling Type"] == "ALL"
-].drop(columns=["Dwelling Type"]).copy()
+df_without_dwelling = df_without_dwelling.drop(
+    columns=['Dwelling Type']
+)
 
 assert not df_without_dwelling.duplicated(
     ["Location Id", "year_quarter"]
