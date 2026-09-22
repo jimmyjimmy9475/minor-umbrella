@@ -24,9 +24,9 @@ df["TimeFrame"] = pd.to_datetime(df["TimeFrame"])
 df = df[df["TimeFrame"] >= "2025-10-01"]
 
 quarter = {
-    pd.Timestamp("2025-10-01"): "2025_Q4",
-    pd.Timestamp("2026-01-01"): "2026_Q1",
-    pd.Timestamp("2026-04-01"): "2026_Q2"
+    pd.Timestamp("2025-10-01"): "2025Q4",
+    pd.Timestamp("2026-01-01"): "2026Q1",
+    pd.Timestamp("2026-04-01"): "2026Q2"
 }
 
 df["year_quarter"] = df["TimeFrame"].map(quarter)
@@ -73,13 +73,26 @@ df_with_dwelling.to_csv(
 )
 
 
-# Dataset without Dwelling Type Info
+# # Dataset without Dwelling Type Info
 
-df_without_dwelling = df[df['Dwelling Type']!='ALL']
+# df_without_dwelling = df[df['Dwelling Type']!='ALL']
 
-df = df.drop(
-    columns=['Dwelling Type']
-)
+# df = df.drop(
+#     columns=['Dwelling Type']
+# )
+
+# df_without_dwelling.to_csv(
+#     output_withoutdwelling_filepath,
+#     index=False
+# )
+
+df_without_dwelling = df.loc[
+    df["Dwelling Type"] == "ALL"
+].drop(columns=["Dwelling Type"]).copy()
+
+assert not df_without_dwelling.duplicated(
+    ["Location Id", "year_quarter"]
+).any(), "Duplicate overall records for the same area and quarter"
 
 df_without_dwelling.to_csv(
     output_withoutdwelling_filepath,

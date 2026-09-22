@@ -7,11 +7,19 @@ months = {
     "May": "May-2026",
     "April": "April-2026",
     "March": "March-2026",
+<<<<<<< Updated upstream
     "February": "Feb-2026",
     "January": "Jan-2026",
     "December": "Dec-2025",
     "November": "Nov-2025",
     "October": "Oct-2025"
+=======
+    "February": "February-2026",
+    "January": "January-2026",
+    "December": "December-2025",
+    "November": "November-2025",
+    "October": "October-2025"
+>>>>>>> Stashed changes
 }
 
 dfs = []
@@ -77,11 +85,11 @@ conditions = [
     df_chch_all["month_year"] == "May-2026",
     df_chch_all["month_year"] =="April-2026",
     df_chch_all["month_year"] == "March-2026", 
-    df_chch_all["month_year"] == "Feb-2026", 
-    df_chch_all["month_year"] == "Jan-2026", 
-    df_chch_all["month_year"]== "Dec-2025",
-    df_chch_all["month_year"]== "Nov-2025",
-    df_chch_all["month_year"] == "Oct-2025",
+    df_chch_all["month_year"] == "February-2026", 
+    df_chch_all["month_year"] == "January-2026", 
+    df_chch_all["month_year"]== "December-2025",
+    df_chch_all["month_year"]== "November-2025",
+    df_chch_all["month_year"] == "October-2025",
 ]
 
 # Publish Dates
