@@ -1,7 +1,8 @@
 import pandas as pd
 
 input_filepath = "tenancy_data/Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv"
-output_filepath = "tenancy_clean.csv"
+output_withdwelling_filepath = "tenancy_clean_with_dwelling.csv"
+output_withoutdwelling_filepath = "tenancy_clean_without_dwelling.csv"
 stat_area_filepath = "stat_area_data/geographic-areas-table-2023.csv"
 
 # treat location as string
@@ -33,9 +34,6 @@ df["year_quarter"] = df["TimeFrame"].map(quarter)
 # remove national aggregate of bonds
 df = df[df['Location Id']!='-99']
 
-# remove aggregation of dwelling types
-df = df[df['Dwelling Type']!='ALL']
-
 # only include aggregated number of beds
 df = df[df['Number Of Beds']=='ALL']
 
@@ -65,7 +63,25 @@ assert df.duplicated(['Location Id', 'year_quarter', 'Dwelling Type']).sum() == 
 print(f'Rows removed due to NA location: {num_before_removena-num_after_removena}')
 print(df)
 
-df.to_csv(
-    output_filepath,
+# Dataset with Dwelling Type Info
+
+df_with_dwelling = df[df['Dwelling Type']!='ALL']
+
+df_with_dwelling.to_csv(
+    output_withdwelling_filepath,
+    index=False
+)
+
+
+# Dataset without Dwelling Type Info
+
+df_without_dwelling = df[df['Dwelling Type']!='ALL']
+
+df = df.drop(
+    columns=['Dwelling Type']
+)
+
+df_without_dwelling.to_csv(
+    output_withoutdwelling_filepath,
     index=False
 )

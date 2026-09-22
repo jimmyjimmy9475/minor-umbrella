@@ -229,3 +229,5 @@ listings_SA2.csv
 
 
 listings_tenancy_joined.csv
+tenancy_clean_with_dwelling.csv
+tenancy_clean_without_dwelling.csv
