@@ -83,16 +83,21 @@ The date column was replaced with a quarter column.
 Original data is not tidy, it contains rows which are aggregates of other rows.
 These rows have been deleted.
 - Where location is -99 (national aggregate)
-- Where Dwelling Type is ALL
 - Where Number Of Beds is *not* ALL (analysis does not require number of beds)
 
 The following columns were dropped as they were deemed to have little relavance to this analysis.
-- Geometric Mean Rent
 - Total Bonds (not interested in the change in the number of bonds quarter to quarter)
 - Closed Bonds (as before)
 - Number Of Beds (analysis does not use number of beds, only considering aggregate rows)
-- Log Std Dev Weekly Rent (not too helpful for this)
 
 Rows with Location Id = NaN were removed as these did not have price data(median rent etc were also NaN). Not completely certain what these bonds represent, potentially is an aggregate for those bonds that were supressed due to having less than 6 active bonds in a location. This removed 15 rows from the filtered dataset.
 
 We checked that there are no duplicated rows.
+
+There are two outputs, one considers tenancy data with dwelling type, some without. Since rows are supressed if they have less than 6 bonds, using the the more granular dwelling type data can result in less total dwellings. Therefore, the dwelling dataset should only be used if required for the analysis
+
+# SA2 and joining
+
+The SA2 region for each airbnb was found by sending the cooredinates to the statsnz api. 
+
+Airbnb data was grouped by SA2, then this was joined with the tenancy dataset. A left join was used such that only areas present in the airbnb data(i.e. christchurch) were included. This may result in additional rentals outside the airbnb christchurch region being included(where the SA2 extends outside the airbnb region)
