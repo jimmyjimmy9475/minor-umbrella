@@ -6,7 +6,7 @@ import pandas as pd
 conn = sqlite3.connect('D5_airbnb.db')
 cursor = conn.cursor()
 
-df_airbnb = pd.read_csv('listing_concat_clean.csv')
+df_airbnb = pd.read_csv('listings_concat_clean.csv')
 df_tenancy = pd.read_csv('tenancy_clean.csv')
 
 
