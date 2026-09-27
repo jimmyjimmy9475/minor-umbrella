@@ -1,3 +1,7 @@
+"""
+Group airbnb listings by sa2 region and then join with tenency data on sa2
+"""
+
 import pandas as pd
 from pathlib import Path
 

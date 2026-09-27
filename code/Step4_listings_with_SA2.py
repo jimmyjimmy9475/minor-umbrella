@@ -1,3 +1,7 @@
+"""
+Get the SA2_2019 region for each airbnb using the stats nz api
+"""
+
 import requests
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor, as_completed

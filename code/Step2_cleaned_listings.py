@@ -1,3 +1,7 @@
+"""
+Take aggregated airbnb listings, remove unnecessary columns
+"""
+
 import pandas as pd
 from pathlib import Path
 

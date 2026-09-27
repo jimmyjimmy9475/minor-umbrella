@@ -1,3 +1,8 @@
+"""
+Take listing data and concatinate it to simplify analysis.
+Create some exploratory plots.
+"""
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

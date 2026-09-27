@@ -1,3 +1,8 @@
+"""
+Filter tenancy data to just the time range of the airbnb dataset, and remove aggregate rows.
+Produces two datasets, with and without dwelling breakdown.
+"""
+
 import pandas as pd
 from pathlib import Path
 

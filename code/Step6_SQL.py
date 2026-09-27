@@ -1,5 +1,7 @@
-## Artificial Intelligence was used to assist with basic setup and coding,
-#  however it was NOT used for join decisions and output was inspected for accuracy and correctness.
+"""
+save data sets to a database
+"""
+
 import sqlite3
 import pandas as pd
 from pathlib import Path
