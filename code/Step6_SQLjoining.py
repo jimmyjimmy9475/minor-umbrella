@@ -7,9 +7,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 db_filepath = ROOT / 'output' / 'joined.db'
-listings_filepath = ROOT / 'output' / 'csv' / 'listings_SA2.csv'
-tenancy_filepath = ROOT / 'output' / 'csv' / 'tenancy_clean_without_dwelling.csv'
-joinned_filepath = ROOT / 'output' / 'csv' / 'listings_tenancy_joined.csv'
+listings_filepath = ROOT / 'output' / 'csv' / 'Step4_listings_with_SA2.csv'
+tenancy_filepath = ROOT / 'output' / 'csv' / 'Step3_cleaning_tenancy_data_without_dwelling.csv'
+joinned_filepath = ROOT / 'output' / 'csv' / 'Step5_joined_listings_tenancy.csv'
 
 conn = sqlite3.connect(db_filepath)
 cursor = conn.cursor()

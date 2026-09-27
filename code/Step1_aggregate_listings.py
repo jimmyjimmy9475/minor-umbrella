@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+AIRBNB_DATA_FOLDER_PATH = ROOT / 'data' / 'airbnb_data'
+OUTPUT_FILEPATH = ROOT / 'output' / 'csv' / 'Step1_aggregate_listings.csv'
 
 months = {
     "June": "June-2026",
@@ -21,7 +23,7 @@ dfs = []
 
 for month, month_year in months.items():
     # Read the file
-    df = pd.read_csv(ROOT / 'data' / 'airbnb_data' / f"listings_{month}.csv")
+    df = pd.read_csv( AIRBNB_DATA_FOLDER_PATH / f"listings_{month}.csv")
 
     # Filter Christchurch City
     df_chch = df[df["neighbourhood_group"] == "Christchurch City"].copy()
@@ -35,12 +37,6 @@ for month, month_year in months.items():
 df_chch_all = pd.concat(dfs, ignore_index=True)
 # Convert price to numeric, then to nullable integer
 df_chch_all["price"] = pd.to_numeric(df_chch_all["price"], errors="coerce").astype("Int64")
-
-
-# Check
-# print(df_chch_all[["month_year", "neighbourhood_group"]].head())
-# print(df_chch_all.tail())
-# print(df_chch_all["neighbourhood_group"].unique())
 
 # Print number of missing values in each column
 print("**Missing values in each column**")
@@ -61,7 +57,7 @@ print(df_chch_all["room_type"].value_counts())
 print()
 
 # Save the concatenated AirBnB listings for christchurch from Oct-2025 to June-2026
-df_chch_all.to_csv(ROOT / 'output' / 'csv' / 'listings_concat.csv')
+df_chch_all.to_csv(OUTPUT_FILEPATH)
 
 # Distribution(histogram) of price (<= 3000)
 # Note: Many don't have a defined price, these are ignored

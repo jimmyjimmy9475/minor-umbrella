@@ -3,7 +3,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-df_chch_all = pd.read_csv(ROOT / 'output' / 'csv' / 'listings_concat.csv', dtype={"price" : "Int64"} )
+INPUT_FILEPATH = ROOT / 'output' / 'csv' / 'Step1_aggregate_listings.csv'
+OUTPUT_FILEPATH = ROOT / 'output' / 'csv' / 'Step2_cleaned_listings.csv'
+
+df_chch_all = pd.read_csv(INPUT_FILEPATH, dtype={"price" : "Int64"} )
 
 df_chch_clean = df_chch_all.copy()
 
@@ -49,7 +52,7 @@ df_chch_clean = df_chch_clean.reset_index(drop=True)
 df_chch_clean.insert(0, "row_number", range(1, len(df_chch_clean) + 1))
 
 df_chch_clean.to_csv(
-    ROOT / 'output' / 'csv' / 'listings_concat_clean.csv',
+    OUTPUT_FILEPATH,
     index=False
 )
 

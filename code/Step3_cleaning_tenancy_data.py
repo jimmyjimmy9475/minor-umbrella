@@ -3,11 +3,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-input_filepath = ROOT / 'data' / 'tenancy_data' / 'Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv'
-stat_area_filepath = ROOT / 'data' / 'stat_area_data/geographic-areas-table-2023.csv'
+INPUT_FILEPATH = ROOT / 'data' / 'tenancy_data' / 'Detailed-Quarterly-Tenancy-Q1-2020-Q3-2026.csv'
+STAT_AREA_FILEPATH = ROOT / 'data' / 'stat_area_data/geographic-areas-table-2023.csv'
 
-output_withdwelling_filepath = ROOT / 'output' / 'csv' / 'tenancy_clean_with_dwelling.csv'
-output_withoutdwelling_filepath = ROOT / 'output' / 'csv' / 'tenancy_clean_without_dwelling.csv'
+OUTPUT_WITHDWELLING_FILEPATH = ROOT / 'output' / 'csv' / 'Step3_cleaning_tenancy_data_with_dwelling.csv'
+OUTPUT_WITHOUT_DWELLING_FILEPATH = ROOT / 'output' / 'csv' / 'Step3_cleaning_tenancy_data_without_dwelling.csv'
 
 # treat location as string
 data_types = {
@@ -18,7 +18,7 @@ data_types = {
     'Lower Quartile Rent':'Int64',
 }
 
-df = pd.read_csv(input_filepath, dtype=data_types)
+df = pd.read_csv(INPUT_FILEPATH, dtype=data_types)
 
 assert df['TimeFrame'].notna().all(), "TimeFrame has Na values"
 # Convert the "TimeFrame" column to datetime data type
@@ -55,7 +55,7 @@ num_before_removena = len(df['Location Id'])
 df = df[df['Location Id'].notna()] # remove na
 num_after_removena = len(df['Location Id'])
 
-stat_areas = pd.read_csv(stat_area_filepath)
+stat_areas = pd.read_csv(STAT_AREA_FILEPATH)
 
 # Check some assumptions
 assert df['year_quarter'].notna().all(), "year_quarter has Na values"
@@ -72,7 +72,7 @@ print(f'Rows removed due to NA location: {num_before_removena-num_after_removena
 df_with_dwelling = df[df['Dwelling Type']!='ALL']
 
 df_with_dwelling.to_csv(
-    output_withdwelling_filepath,
+    OUTPUT_WITHDWELLING_FILEPATH,
     index=False
 )
 
@@ -90,6 +90,6 @@ assert not df_without_dwelling.duplicated(
 ).any(), "Duplicate overall records for the same area and quarter"
 
 df_without_dwelling.to_csv(
-    output_withoutdwelling_filepath,
+    OUTPUT_WITHOUT_DWELLING_FILEPATH,
     index=False
 )

@@ -3,9 +3,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-listings_filepath = ROOT / 'output' / 'csv' / 'listings_SA2.csv'
-tenancy_filepath = ROOT / 'output' / 'csv' / 'tenancy_clean_without_dwelling.csv'
-output_filepath = ROOT / 'output' / 'csv' / 'listings_tenancy_joined.csv'
+listings_filepath = ROOT / 'output' / 'csv' / 'Step4_listings_with_SA2.csv'
+tenancy_filepath = ROOT / 'output' / 'csv' / 'Step3_cleaning_tenancy_data_without_dwelling.csv'
+output_filepath = ROOT / 'output' / 'csv' / 'Step5_joined_listings_tenancy.csv'
 
 tenancy = pd.read_csv(
     tenancy_filepath,

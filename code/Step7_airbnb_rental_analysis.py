@@ -4,9 +4,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 
-listing_tenancy_filepath = ROOT / 'output' / 'csv' / 'listings_tenancy_joined.csv'
+listing_tenancy_filepath = ROOT / 'output' / 'csv' / 'Step5_joined_listings_tenancy.csv'
 geography_file = ROOT / 'data' / 'stat_area_data' / 'geographic-areas-table-2023.csv'
-plot_filepath = ROOT / 'output' / 'image' / 'plot.png'
+plot_filepath = ROOT / 'output' / 'image' / 'airbnb_vs_rental_price.png'
 
 # LOAD DATA
 

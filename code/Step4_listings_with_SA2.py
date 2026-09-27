@@ -13,8 +13,8 @@ LAYER = "98970"
 
 URL = "https://datafinder.stats.govt.nz/services/query/v1/vector.json"
 
-listings_filepath = ROOT / 'output' / 'csv' / 'listings_concat_clean.csv'
-output_filepath = ROOT / 'output' / 'csv' / 'listings_SA2.csv'
+LISTINGS_NO_SA2_FILEPATH = ROOT / 'output' / 'csv' / 'Step2_cleaned_listings.csv'
+LISTINGS_WITH_SA2_FILEPATH = ROOT / 'output' / 'csv' / 'Step4_listings_with_SA2.csv'
 
 def get_sa2(lon, lat):
     if pd.isna(lon) or pd.isna(lat):
@@ -51,7 +51,7 @@ def get_sa2(lon, lat):
         return
     
 def freshRun():
-    df = pd.read_csv(listings_filepath, dtype={"price" : "Int64"})
+    df = pd.read_csv(LISTINGS_NO_SA2_FILEPATH, dtype={"price" : "Int64"})
 
     coordinates = (
         df[["longitude", "latitude"]]
@@ -69,12 +69,12 @@ def freshRun():
         for lon, lat in zip(df["longitude"], df["latitude"])
     ]
 
-    df.to_csv(output_filepath, index=False)
+    df.to_csv(LISTINGS_WITH_SA2_FILEPATH, index=False)
 
-    print(f"Saved to {output_filepath}")
+    print(f"Saved to {LISTINGS_WITH_SA2_FILEPATH}")
 
 def fill_missing_sa2():
-    df = pd.read_csv(output_filepath, dtype={"sa2": str, "price" : "Int64"})
+    df = pd.read_csv(LISTINGS_WITH_SA2_FILEPATH, dtype={"sa2": str, "price" : "Int64"})
 
     missing_mask = df["sa2"].isna() | (df["sa2"].astype(str).str.strip() == "")
 
@@ -107,9 +107,9 @@ def fill_missing_sa2():
         f"{df.loc[missing_mask, 'sa2'].notna().sum():,}"
     )
 
-    df.to_csv(output_filepath, index=False)
+    df.to_csv(LISTINGS_WITH_SA2_FILEPATH, index=False)
     
-    print(f"Saved to {output_filepath}")
+    print(f"Saved to {LISTINGS_WITH_SA2_FILEPATH}")
 
 def concurrentSA2(coordinates):
 
