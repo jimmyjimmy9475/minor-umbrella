@@ -30,6 +30,8 @@ listings = pd.read_csv(
 )
 
 tenancy = tenancy.rename(columns={"Location Id": "sa2"})
+
+# convert Month-Year to Q#
 listings["year_quarter"] = pd.to_datetime(
     listings["month_year"],
     format="%B-%Y"

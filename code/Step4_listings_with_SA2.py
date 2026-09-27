@@ -44,6 +44,7 @@ def get_sa2(lon, lat):
         if not features:
             return
 
+        assert len(features) == 1, "There is more than one feature returned by the api"
         feature = features[0]
 
         properties = feature.get("properties", feature)

@@ -24,8 +24,9 @@ months = {
     "October": "October-2025"
 }
 
-dfs = []
+# Read each month and append to a dataframe, long format
 
+dfs = []
 for month, month_year in months.items():
     # Read the file
     df = pd.read_csv( AIRBNB_DATA_FOLDER_PATH / f"listings_{month}.csv")

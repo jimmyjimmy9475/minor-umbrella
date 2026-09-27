@@ -29,7 +29,7 @@ assert df['TimeFrame'].notna().all(), "TimeFrame has Na values"
 # Convert the "TimeFrame" column to datetime data type
 df["TimeFrame"] = pd.to_datetime(df["TimeFrame"])
 
-# Filter the dataset to dates after 1 October 2025
+# Filter the dataset to just what exists in the airbnb datset
 df = df[df["TimeFrame"] >= "2025-10-01"]
 
 quarter = {
