@@ -39,13 +39,14 @@ for month, month_year in months.items():
 
     dfs.append(df_chch)
 
-#The sanity check looks for any rows that are not Christchurch City in neighbourhood_group
-
-assert df["neighbourhood_group"].eq("Christchurch City").all(), \
-    "Non-Christchurch or missing city values remain"
-
 # Combine all months
 df_chch_all = pd.concat(dfs, ignore_index=True)
+
+#The sanity check looks for any rows that are not Christchurch City in neighbourhood_group
+assert df_chch_all["neighbourhood_group"].eq("Christchurch City").all(), \
+    "Non-Christchurch or missing city values remain"
+
+
 # Convert price to numeric, then to nullable integer
 df_chch_all["price"] = pd.to_numeric(df_chch_all["price"], errors="coerce").astype("Int64")
 
