@@ -14,6 +14,8 @@ STAT_AREA_FILEPATH = ROOT / 'data' / 'stat_area_data/geographic-areas-table-2023
 OUTPUT_WITHDWELLING_FILEPATH = ROOT / 'output' / 'csv' / 'Step3_cleaning_tenancy_data_with_dwelling.csv'
 OUTPUT_WITHOUT_DWELLING_FILEPATH = ROOT / 'output' / 'csv' / 'Step3_cleaning_tenancy_data_without_dwelling.csv'
 
+MINIMUM_DATE = "2025-10-01"
+
 # treat location as string
 data_types = {
     'Location Id': str,
@@ -30,7 +32,7 @@ assert df['TimeFrame'].notna().all(), "TimeFrame has Na values"
 df["TimeFrame"] = pd.to_datetime(df["TimeFrame"])
 
 # Filter the dataset to just what exists in the airbnb datset
-df = df[df["TimeFrame"] >= "2025-10-01"]
+df = df[df["TimeFrame"] >= MINIMUM_DATE]
 
 quarter = {
     pd.Timestamp("2025-10-01"): "2025Q4",

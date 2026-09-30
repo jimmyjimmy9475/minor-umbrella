@@ -10,3 +10,4 @@ For the week 10 deliverable we modified out repository to follow better coding p
 - Renamed files to be clear about their purpose and the order they are to be run in
 - Added assert statements
 - Added comments breaking up sections
+- Moved many constants to the top of the file

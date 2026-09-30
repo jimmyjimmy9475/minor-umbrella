@@ -77,6 +77,7 @@ def freshRun():
     df.to_csv(LISTINGS_WITH_SA2_FILEPATH, index=False)
 
     print(f"Saved to {LISTINGS_WITH_SA2_FILEPATH}")
+    print(df[["row_number","sa2"]].head())
 
 def fill_missing_sa2():
     df = pd.read_csv(LISTINGS_WITH_SA2_FILEPATH, dtype={"sa2": str, "price" : "Int64"})

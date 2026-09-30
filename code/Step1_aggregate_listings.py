@@ -121,3 +121,6 @@ print(r"The Top 10% number of reviews Christchurch AirBnBs ")
 print(top_10_reviews[["name", "number_of_reviews", "month_year", "price"]])
 
 print("Number in Top 10 percent numbers of reviews: ", len(top_10_reviews))
+
+
+print(df_chch_all.head())
