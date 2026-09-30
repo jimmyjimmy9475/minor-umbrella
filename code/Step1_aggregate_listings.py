@@ -12,6 +12,20 @@ ROOT = Path(__file__).resolve().parent.parent
 AIRBNB_DATA_FOLDER_PATH = ROOT / 'data' / 'airbnb_data'
 OUTPUT_FILEPATH = ROOT / 'output' / 'csv' / 'Step1_aggregate_listings.csv'
 
+NEIGHBOURHOOD_OF_INTEREST = "Christchurch City"
+
+publish_dates = {
+    "June-2026": "2026-06-22",
+    "May-2026": "2026-06-03",
+    "April-2026": "2026-04-23",
+    "March-2026": "2026-03-23",
+    "February-2026": "2026-02-16",
+    "January-2026": "2026-01-24",
+    "December-2025": "2025-12-13",
+    "November-2025": "2025-11-21",
+    "October-2025": "2025-10-09",
+}
+
 files = [f.stem for f in AIRBNB_DATA_FOLDER_PATH.glob("*.csv")]
 months = [f.removesuffix(".csv") for f in files]
 
@@ -23,7 +37,7 @@ for month in months:
     df = pd.read_csv( AIRBNB_DATA_FOLDER_PATH / (month + ".csv"))
 
     # Filter Christchurch City
-    df_chch = df[df["neighbourhood_group"] == "Christchurch City"].copy()
+    df_chch = df[df["neighbourhood_group"] == NEIGHBOURHOOD_OF_INTEREST].copy()
 
     # Add Month-Year column
     df_chch["month_year"] = month
@@ -34,7 +48,7 @@ for month in months:
 df_chch_all = pd.concat(dfs, ignore_index=True)
 
 #The sanity check looks for any rows that are not Christchurch City in neighbourhood_group
-assert df_chch_all["neighbourhood_group"].eq("Christchurch City").all(), \
+assert df_chch_all["neighbourhood_group"].eq(NEIGHBOURHOOD_OF_INTEREST).all(), \
     "Non-Christchurch or missing city values remain"
 
 
@@ -77,32 +91,10 @@ plt.show()
      # A publish date column created. 
      # Since some of the values for the number of days since last review were negative(ranging from -13 to -1), the publish date was adjusted.
 
-conditions = [
-    df_chch_all["month_year"] == "June-2026", 
-    df_chch_all["month_year"] == "May-2026",
-    df_chch_all["month_year"] =="April-2026",
-    df_chch_all["month_year"] == "March-2026", 
-    df_chch_all["month_year"] == "February-2026", 
-    df_chch_all["month_year"] == "January-2026", 
-    df_chch_all["month_year"]== "December-2025",
-    df_chch_all["month_year"]== "November-2025",
-    df_chch_all["month_year"] == "October-2025",
-]
-
-# Publish Dates
-choice = [
-    "2026-06-22", # June
-    "2026-06-03", # May
-    "2026-04-23", # April
-    "2026-03-23", # March
-    "2026-02-16", # February
-    "2026-01-24", # January
-    "2025-12-13", # December
-    "2025-11-21", # November
-    "2025-10-09", # October
-]
-
-df_chch_all["publish_date"] = np.select(conditions, choice, default=None)
+df_chch_all["publish_date"] = (
+    df_chch_all["month_year"]
+    .map(publish_dates)
+)
 # Note: months outside of those listed are given a null value
 
 # last review and publish date columns are converted to datetime data type
