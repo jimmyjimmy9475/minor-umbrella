@@ -12,30 +12,21 @@ ROOT = Path(__file__).resolve().parent.parent
 AIRBNB_DATA_FOLDER_PATH = ROOT / 'data' / 'airbnb_data'
 OUTPUT_FILEPATH = ROOT / 'output' / 'csv' / 'Step1_aggregate_listings.csv'
 
-months = {
-    "June": "June-2026",
-    "May": "May-2026",
-    "April": "April-2026",
-    "March": "March-2026",
-    "February": "February-2026",
-    "January": "January-2026",
-    "December": "December-2025",
-    "November": "November-2025",
-    "October": "October-2025"
-}
+files = [f.stem for f in AIRBNB_DATA_FOLDER_PATH.glob("*.csv")]
+months = [f.removesuffix(".csv") for f in files]
 
 # Read each month and append to a dataframe, long format
 
 dfs = []
-for month, month_year in months.items():
+for month in months:
     # Read the file
-    df = pd.read_csv( AIRBNB_DATA_FOLDER_PATH / f"listings_{month}.csv")
+    df = pd.read_csv( AIRBNB_DATA_FOLDER_PATH / (month + ".csv"))
 
     # Filter Christchurch City
     df_chch = df[df["neighbourhood_group"] == "Christchurch City"].copy()
 
     # Add Month-Year column
-    df_chch["month_year"] = month_year
+    df_chch["month_year"] = month
 
     dfs.append(df_chch)
 
