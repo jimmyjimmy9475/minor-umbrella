@@ -14,17 +14,6 @@ OUTPUT_FILEPATH = ROOT / 'output' / 'csv' / 'Step1_aggregate_listings.csv'
 
 NEIGHBOURHOOD_OF_INTEREST = "Christchurch City"
 
-publish_dates = {
-    "June-2026": "2026-06-22",
-    "May-2026": "2026-06-03",
-    "April-2026": "2026-04-23",
-    "March-2026": "2026-03-23",
-    "February-2026": "2026-02-16",
-    "January-2026": "2026-01-24",
-    "December-2025": "2025-12-13",
-    "November-2025": "2025-11-21",
-    "October-2025": "2025-10-09",
-}
 
 files = [f.stem for f in AIRBNB_DATA_FOLDER_PATH.glob("*.csv")]
 months = [f.removesuffix(".csv") for f in files]
@@ -90,12 +79,12 @@ plt.show()
 
      # A publish date column created. 
      # Since some of the values for the number of days since last review were negative(ranging from -13 to -1), the publish date was adjusted.
-
+     # The publish date is defined as the latest `last_review` date within each monthly dataset.
 df_chch_all["publish_date"] = (
-    df_chch_all["month_year"]
-    .map(publish_dates)
+    df_chch_all
+    .groupby("month_year")["last_review"]
+    .transform("max")
 )
-# Note: months outside of those listed are given a null value
 
 # last review and publish date columns are converted to datetime data type
 df_chch_all["last_review"] = pd.to_datetime(df_chch_all["last_review"])
