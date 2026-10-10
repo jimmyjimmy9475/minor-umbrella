@@ -220,5 +220,10 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-output/**
-!output/**/
+output/csv/*
+!output/csv/.gitkeep
+
+output/image/*
+!output/image/.gitkeep
+
+joined.db
