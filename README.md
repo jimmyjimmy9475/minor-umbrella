@@ -36,6 +36,8 @@ Jan 2020 to Apr 2026 New Zealand
 Source: https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/ 
 This data has been liscensed under a Creative Commons Atribution 3.0 New Zealand License 
 
+This data is not tidy as single observations are included in multiple rows. For example, a tenency of type appartment will be included in both the dwelling type = appartment and dwelling type = all for a given period.
+
 Note: Rows are supressed(ommited) when there are less than 5 bonds for a given period
 
 | Column                         | Data Type    | Description                                        |
