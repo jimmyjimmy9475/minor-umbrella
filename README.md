@@ -1,9 +1,11 @@
-# minor-umbrella
+# AirBnB vs Tenency Prices for Christchurch
+
+This project invloved analysing data sourced from AirBnB and form Tenency Services in order to expolore the difference in prices between short and long term tenencies in Christchurch city.
 
 # Data Sources
 
 ## Airbnb listings.csv
-June 2026 - New Zealand - Source https://docs.google.com/spreadsheets/d/1iWCNJcSutYqpULSQHlNyGInUvHg2BoUGoNRIGa6Szc4/edit
+August 2026 - New Zealand - Source https://docs.google.com/spreadsheets/d/1iWCNJcSutYqpULSQHlNyGInUvHg2BoUGoNRIGa6Szc4/edit
 
 The data set is licenced under the Creative Commons Attribution 4.0 International License.
 
