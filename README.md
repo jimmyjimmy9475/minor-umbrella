@@ -105,3 +105,10 @@ There are two outputs, one considers tenancy data with dwelling type, some witho
 The SA2 region for each airbnb was found by sending the cooredinates to the statsnz api. 
 
 Airbnb data was grouped by SA2, then this was joined with the tenancy dataset. A left join was used such that only areas present in the airbnb data(i.e. christchurch) were included. This may result in additional rentals outside the airbnb christchurch region being included(where the SA2 extends outside the airbnb region)
+
+# API Key
+A Koordinates API key was used to fetch Geospatial data for the pipeline.
+
+*An API key from Koordinates is required to run this pipeline. You must create a Koordinates Account to generate an API key. Follow this to create your account: (https://koordinates.com/)
+
+**For Further Information on how the query API works for non-technical users refer to (https://help.koordinates.com/query-api-and-web-services/koordinates-query-api-non-technical-users/)
