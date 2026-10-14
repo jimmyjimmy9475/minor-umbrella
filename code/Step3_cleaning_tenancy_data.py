@@ -34,14 +34,11 @@ df["TimeFrame"] = pd.to_datetime(df["TimeFrame"])
 # Filter the dataset to just what exists in the airbnb datset
 df = df[df["TimeFrame"] >= MINIMUM_DATE]
 
-quarter = {
-    pd.Timestamp("2025-10-01"): "2025Q4",
-    pd.Timestamp("2026-01-01"): "2026Q1",
-    pd.Timestamp("2026-04-01"): "2026Q2"
-}
-
-df["year_quarter"] = df["TimeFrame"].map(quarter)
-
+df["year_quarter"] = (
+    df["TimeFrame"]
+    .dt.to_period("Q")
+    .astype(str)
+)
 # remove national aggregate of bonds
 df = df[df['Location Id']!='-99']
 
